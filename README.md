@@ -1,7 +1,7 @@
 # Lua-Zombie-Game
-Zombie Game that uses Lua.
+Zombie Game that uses Lua in the LOVE engine.
 
-Control a 2D circle as it tries to survive in a top-down world filled with dangorous zombie 2D circles.
+Control a 2D circle as it tries to survive in a top-down world filled with dangerous zombie 2D circles.
 
 Controls:
 * WASD to move
