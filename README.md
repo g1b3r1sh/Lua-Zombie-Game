@@ -9,7 +9,8 @@ Controls:
 * M1 to shoot
 * 1, 2, 3, 4, 5 to switch weapons
 * R to reload
-Sandbox Controls:
+
+Sandbox Controls (Enter Konami Code):
 * F to spawn a zombie at the crosshair
 * V to set player health to 9999
 * B to make the zombies quiet

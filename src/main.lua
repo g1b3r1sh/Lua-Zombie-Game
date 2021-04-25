@@ -79,8 +79,11 @@ function love.load()
 	hud = Hud(player)
 	
 	gameState = 'play'
-	-- Test Objects
 	gamemode = 'survival'
+	
+	konami = {'up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'}
+	konamiState = 1
+	-- Test Objects
 	--enemiesManager:add(100, WINDOW_HEIGHT / 2, player)
 end
 
@@ -115,8 +118,8 @@ function love.draw()
 	hud:draw()
 	crosshair:draw()
 	-- Printf to view internal values
-	--love.graphics.setColor(black:getValues())
-	--love.graphics.printf(gameState, 0, WINDOW_HEIGHT / 2, WINDOW_WIDTH, 'center')
+	love.graphics.setColor(black:getValues())
+	love.graphics.printf(konamiState, 0, WINDOW_HEIGHT / 2, WINDOW_WIDTH, 'center')
 end
 
 function gameOver()
@@ -172,6 +175,14 @@ function love.keypressed(key)
 			player:switchGun('smg')
 		elseif key == '5' then
 			player:switchGun('sniper')
+		end
+		-- Konami
+		if key == konami[konamiState] then
+			konamiState = konamiState + 1
+			if konamiState == 11 then
+				gamemode = 'sandbox'
+				audio:play('Super Gun Equip')
+			end
 		end
 	end
 end
