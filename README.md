@@ -3,6 +3,10 @@ Zombie Game that uses Lua in the LOVE engine.
 
 Control a 2D circle as it tries to survive in a top-down world filled with dangerous zombie 2D circles.
 
+Running:
+
+To run, you must download [LOVE](https://love2d.org/). Then, follow the instructions in the [LOVE wiki](https://love2d.org/wiki/Getting_Started#Running_Games).
+
 Controls:
 * WASD to move
 * Mouse to aim
