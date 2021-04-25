@@ -118,8 +118,8 @@ function love.draw()
 	hud:draw()
 	crosshair:draw()
 	-- Printf to view internal values
-	love.graphics.setColor(black:getValues())
-	love.graphics.printf(konamiState, 0, WINDOW_HEIGHT / 2, WINDOW_WIDTH, 'center')
+	--love.graphics.setColor(black:getValues())
+	--love.graphics.printf(konamiState, 0, WINDOW_HEIGHT / 2, WINDOW_WIDTH, 'center')
 end
 
 function gameOver()
