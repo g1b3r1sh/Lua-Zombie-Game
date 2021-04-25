@@ -80,7 +80,7 @@ function love.load()
 	
 	gameState = 'play'
 	-- Test Objects
-	gamemode = 'sandbox'
+	gamemode = 'survival'
 	--enemiesManager:add(100, WINDOW_HEIGHT / 2, player)
 end
 
