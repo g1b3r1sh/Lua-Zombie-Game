@@ -7,7 +7,7 @@
 	More classes (game object, map object, hud object, etc), use ECS, code around game states
 ]]--
 
-Class = require 'Class'
+Class = require 'class'
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
