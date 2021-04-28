@@ -5,7 +5,12 @@ Control a 2D circle as it tries to survive in a top-down world filled with dange
 
 Running:
 
-To run, you must download [LOVE](https://love2d.org/). Then, follow the instructions in the [LOVE wiki](https://love2d.org/wiki/Getting_Started#Running_Games).
+To run from source, you must download [LOVE](https://love2d.org/) and the source code. After unzipping the source code, follow the instructions in the [LOVE wiki](https://love2d.org/wiki/Getting_Started#Running_Games):
+
+* Windows: In file explorer, drag the src folder onto love.exe in the LOVE folder (make sure .dlls that come with LOVE installation are in same folder as love.exe)
+* Windows: In command prompt, enter `"[LOVE Folder Path]\love.exe" "[Lua-Zombie-Game Folder Path]\src"`
+* Linux: Enter `love [Lua-Zombie-Game Folder Path]/src/`
+* Mac: In Mac Terminal, enter `open -n -a love "~[Lua-Zombie-Game Folder Path]/src`
 
 Controls:
 * WASD to move
