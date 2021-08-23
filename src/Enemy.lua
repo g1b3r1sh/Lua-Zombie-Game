@@ -3,7 +3,7 @@
 Enemy = Class{}
 
 function Enemy:init(x, y, target)
-	self.body = Circle(x, y, 20, green, 20)
+	self.body = Circle(x, y, 20, colors.green, 20)
 	self.target = target
 	
 	self.healthbar = Healthbar(self)

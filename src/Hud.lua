@@ -17,7 +17,7 @@ end
 
 function Hud:draw()
 	if gameState == 'play' or gameState == 'pause' then
-		love.graphics.setColor(black:getValues())
+		love.graphics.setColor(colors.black:getValues())
 		self:changeFont(hudFont)
 		love.graphics.print("FPS: " .. tostring(love.timer.getFPS()), 5, 5)
 		
@@ -29,7 +29,7 @@ function Hud:draw()
 			love.graphics.printf(string.format('%.1f', self.player.currentGun.reloadTimer), self.player.body.x - self.player.body.r + self.playerPadding, self.player.body.y + self.player.body.r + 3, self.player.body.r * 2 - self.playerPadding * 2, 'center')
 		end
 	elseif gameState == 'gameover' then
-		love.graphics.setColor(black:getValues())
+		love.graphics.setColor(colors.black:getValues())
 		self:changeFont(hudFontBig)
 		
 		love.graphics.printf("Game Over", 0, WINDOW_HEIGHT / 2, WINDOW_WIDTH, 'center')
@@ -43,7 +43,7 @@ function Hud:changeFont(font)
 end
 
 function Hud:drawStationary()
-	love.graphics.setColor(black:getValues())
+	love.graphics.setColor(colors.black:getValues())
 	self:changeFont(hudFontBig)
 	
 	love.graphics.printf(self.player.currentGun.name, self.padding, WINDOW_HEIGHT - self.currentFont:getHeight() - self.padding, WINDOW_WIDTH - self.padding * 2, 'right')

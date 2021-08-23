@@ -9,14 +9,6 @@
 
 Class = require 'class'
 
-WINDOW_WIDTH = 1280
-WINDOW_HEIGHT = 720
-
-BOUNDARY_LEFT = 0 - 100
-BOUNDARY_RIGHT = WINDOW_WIDTH + 100
-BOUNDARY_TOP = 0 - 100
-BOUNDARY_BOTTOM = WINDOW_HEIGHT + 100
-
 require 'Audio'
 
 require 'util'
@@ -40,22 +32,32 @@ require 'Spawning'
 
 require 'Hud'
 
+WINDOW_WIDTH = 1280
+WINDOW_HEIGHT = 720
+
+BOUNDARY_LEFT = 0 - 100
+BOUNDARY_RIGHT = WINDOW_WIDTH + 100
+BOUNDARY_TOP = 0 - 100
+BOUNDARY_BOTTOM = WINDOW_HEIGHT + 100
+
+
 math.randomseed(os.time())
+
+colors = {
+	lightgray = Color(211),
+	gray = Color(128),
+	green = Color(0, 128, 0),
+	blue = Color(0, 0, 255),
+	black = Color(0, 0, 0),
+	lightgreen = Color(50, 200, 50),
+	red = Color(200, 50, 50)
+}
 
 function love.load()
 	
 	-- Window Setup
 	love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT)
 	love.window.setTitle('Zombie Sandbox Survival')
-	
-	-- Setup Colors
-	lightgray = Color(211)
-	gray = Color(128)
-	green = Color(0, 128, 0)
-	blue = Color(0, 0, 255)
-	black = Color(0, 0, 0)
-	lightgreen = Color(50, 200, 50)
-	red = Color(200, 50, 50)
 	
 	-- Setup Fonts
 	-- Roboto by Google Android Design 
@@ -110,7 +112,7 @@ function love.update(dt)
 end
 
 function love.draw()
-	love.graphics.clear(lightgray:getValues())
+	love.graphics.clear(colors.lightgray:getValues())
 	
 	player:draw()
 	enemiesManager:draw()
@@ -118,7 +120,7 @@ function love.draw()
 	hud:draw()
 	crosshair:draw()
 	-- Printf to view internal values
-	--love.graphics.setColor(black:getValues())
+	--love.graphics.setColor(colors.black:getValues())
 	--love.graphics.printf(konamiState, 0, WINDOW_HEIGHT / 2, WINDOW_WIDTH, 'center')
 end
 

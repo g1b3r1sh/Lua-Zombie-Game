@@ -3,7 +3,7 @@ Player = Class{}
 function Player:init()
 	self.speed = 150
 	
-	self.body = Circle(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 20, blue)
+	self.body = Circle(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 20, colors.blue)
 	
 	self.bullets = EntManager(Bullet, function(bullet)
 		return bullet.remove == false

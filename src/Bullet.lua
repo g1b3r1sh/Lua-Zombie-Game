@@ -10,7 +10,7 @@ function Bullet:init(x, y, a, damage, speed)
 	self.speed = speed
 	
 	self.r = 3
-	self.color = black
+	self.color = colors.black
 	
 	self.dx = self.speed * math.cos(a)
 	self.dy = self.speed * math.sin(a)

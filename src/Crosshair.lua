@@ -7,8 +7,8 @@ function Crosshair:init(mouse)
 	
 	self.r = 5
 	self.lineWidth = 1
-	self.color = black
-	self.colorClick = lightgreen
+	self.color = colors.black
+	self.colorClick = colors.lightgreen
 end
 
 function Crosshair:update(dt)

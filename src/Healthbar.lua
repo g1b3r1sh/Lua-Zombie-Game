@@ -26,9 +26,9 @@ function Healthbar:draw()
 	if self.healthRatio ~= 1 then
 		love.graphics.setLineWidth(3)
 		
-		love.graphics.setColor(red:getValues())
+		love.graphics.setColor(colors.red:getValues())
 		love.graphics.line(self.parent.body.x - self.width / 2 + self.width * self.healthRatio, self.y, self.endX, self.y)
-		love.graphics.setColor(green:getValues())
+		love.graphics.setColor(colors.green:getValues())
 		love.graphics.line(self.parent.body.x - self.width / 2, self.y, self.parent.body.x - self.width / 2 + self.width * self.healthRatio, self.y)
 		
 		love.graphics.setLineWidth(1)
