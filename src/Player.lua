@@ -3,17 +3,18 @@ Player = Class{}
 function Player:init()
 	self.speed = 150
 	
-	self.body = Circle(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 20, colors.blue)
+	self.body = Circle(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 20, COLORS.blue)
+	
 	
 	self.bullets = EntManager(Bullet, function(bullet)
-		return bullet.remove == false
+		return bullet.remove
 	end)
 	
 	-- Format of guns: name, owner, bulletsManager, interval, clipSize, reloadSpeed, bulletSpeed, spread, damage, Shotguns:[numBullets, roundSpread])
 	self.guns = {
 		pistol = Gun('Pistol', self.body, self.bullets, 0.3, 20, 0.5, 500, 0.05, 12),
 		rifle = Gun('Assault Rifle', self.body, self.bullets, 0.1, 30, 1.5, 800, 0.1, 10),
-		shotgun = Shotgun('Shotgun', self.body, self.bullets, 0.7, 5, 2, 800, 0.3, 15, 4, math.rad(20)),
+		shotgun = Shotgun('Shotgun', self.body, self.bullets, 0.7, 5, 2, 800, 0.3, 15, 4, math.rad(5)),
 		smg = Gun('SMG', self.body, self.bullets, 0.05, 50, 0.8, 300, 1, 7),
 		sniper = Gun('Sniper Rifle', self.body, self.bullets, 1, 5, 3, 1500, 0.01, 99)
 	}
@@ -33,7 +34,7 @@ function Player:init()
 	
 	self.dead = false
 	
-	-- Used for Collision iterations, since they expect an objects table
+	-- Used for Collision iterations, since they expect a table of objects
 	self.objects = {self}
 end
 
@@ -55,14 +56,13 @@ end
 
 function Player:draw()
 	self.body:draw()
-	if gameState ~= 'gameover' then
+	if not self.dead then
 		self.bullets:draw()
 		self.currentGun:draw()
 	end
 end
 
 function Player:switchGun(gun)
-	-- Hack to prevent switching to same weapon
 	if self.guns[gun].name ~= self.currentGun.name then
 		self.currentGun.state = 'shoot'
 		if audio:isPlaying('reloadStart') then

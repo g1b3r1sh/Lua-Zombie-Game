@@ -1,16 +1,17 @@
 Bullet = Class{}
-
+-- If damage decreases over time, change in update loop
+	-- Alternative is to save origin and calculate real damage at point of impact
+-- Additionally, damage should be calculated in Bullet class
 function Bullet:init(x, y, a, damage, speed)
+	self.r = 3
+	self.color = COLORS.black
+	
 	self.x = x
 	self.y = y
 	self.a = a
-	-- If damage decreases over time, change in update loop
-		-- Alternative is to save origin and calculate real damage at point of impact in collision object
 	self.damage = damage
 	self.speed = speed
 	
-	self.r = 3
-	self.color = colors.black
 	
 	self.dx = self.speed * math.cos(a)
 	self.dy = self.speed * math.sin(a)

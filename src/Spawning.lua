@@ -12,16 +12,7 @@ end
 function Spawning:update(dt)
 	self.spawnTimer = self.spawnTimer + dt
 	if self.spawnTimer > self.spawnInterval then
-		local side = math.random(4)
-		if side == 0 then
-			self.enemiesManager:add(0 - self.enemyRadius, math.random(100, WINDOW_HEIGHT - 100), player)
-		elseif side == 1 then
-			self.enemiesManager:add(math.random(100, WINDOW_WIDTH - 100), 0 - self.enemyRadius, player)
-		elseif side == 2 then
-			self.enemiesManager:add(WINDOW_WIDTH + self.enemyRadius, math.random(100, WINDOW_HEIGHT - 100), player)
-		else
-			self.enemiesManager:add(math.random(100, WINDOW_WIDTH - 100), WINDOW_HEIGHT + self.enemyRadius, player)
-		end
+		self:spawnEdge()
 		self.spawnTimer = 0
 		if self.spawnInterval > 1 then
 			self.spawnInterval = self.spawnInterval - 0.1
@@ -30,4 +21,17 @@ function Spawning:update(dt)
 end
 
 function Spawning:draw()
+end
+
+function Spawning:spawnEdge()
+	local side = math.random(4)
+	if side == 0 then
+		self.enemiesManager:emplace(0 - self.enemyRadius, math.random(100, WINDOW_HEIGHT - 100), player)
+	elseif side == 1 then
+		self.enemiesManager:emplace(math.random(100, WINDOW_WIDTH - 100), 0 - self.enemyRadius, player)
+	elseif side == 2 then
+		self.enemiesManager:emplace(WINDOW_WIDTH + self.enemyRadius, math.random(100, WINDOW_HEIGHT - 100), player)
+	else
+		self.enemiesManager:emplace(math.random(100, WINDOW_WIDTH - 100), WINDOW_HEIGHT + self.enemyRadius, player)
+	end
 end

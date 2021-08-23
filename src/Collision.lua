@@ -1,15 +1,8 @@
-Collision = Class{}
+Collision = {}
 
 require 'util'
 
-function Collision:init()
-end
-
-function Collision:update(dt)
-end
-
-function Collision:draw()
-end
+-- TODO: Seperate bullet interaction behavior with collision behavior
 
 function Collision:iterateBulletCollision(bulletsManager, targetsManager)
 	for _, t in ipairs(targetsManager.objects) do

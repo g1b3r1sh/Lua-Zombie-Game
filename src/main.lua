@@ -43,7 +43,7 @@ BOUNDARY_BOTTOM = WINDOW_HEIGHT + 100
 
 math.randomseed(os.time())
 
-colors = {
+COLORS = {
 	lightgray = Color(211),
 	gray = Color(128),
 	green = Color(0, 128, 0),
@@ -59,11 +59,6 @@ function love.load()
 	love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT)
 	love.window.setTitle('Zombie Sandbox Survival')
 	
-	-- Setup Fonts
-	-- Roboto by Google Android Design 
-	hudFont = love.graphics.newFont('Roboto-Condensed.ttf', 20)
-	hudFontBig = love.graphics.newFont('Roboto-Condensed.ttf', 30)
-	hudFontSmall = love.graphics.newFont('Roboto-Condensed.ttf', 15)
 	
 	-- Setup Objects
 	audio = Audio()
@@ -74,9 +69,8 @@ function love.load()
 		if enemy.dead then
 			player.kills = player.kills + 1
 		end
-		return enemy.dead == false
+		return enemy.dead
 	end)
-	collision = Collision()
 	spawning = Spawning(enemiesManager)
 	hud = Hud(player)
 	
@@ -86,7 +80,7 @@ function love.load()
 	konami = {'up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'}
 	konamiState = 1
 	-- Test Objects
-	--enemiesManager:add(100, WINDOW_HEIGHT / 2, player)
+	--enemiesManager:emplace(100, WINDOW_HEIGHT / 2, player)
 end
 
 function love.update(dt)
@@ -96,10 +90,8 @@ function love.update(dt)
 		
 		player:update(dt)
 		enemiesManager:update(dt)
+		doGameCollisions()
 		
-		collision:iterateBulletCollision(player.bullets, enemiesManager)
-		collision:iterateCircleCollision(player, enemiesManager)
-		collision:selfIterateCircleCollision(enemiesManager)
 		hud:update(dt)
 		
 		if gamemode == 'survival' then
@@ -107,21 +99,20 @@ function love.update(dt)
 		end
 	elseif gameState == 'gameover' then
 		enemiesManager:update(dt)
-		collision:selfIterateCircleCollision(enemiesManager)
+		doGameCollisions()
 	end
 end
 
 function love.draw()
-	love.graphics.clear(colors.lightgray:getValues())
+	love.graphics.clear(COLORS.lightgray:getValues())
 	
 	player:draw()
 	enemiesManager:draw()
 	
 	hud:draw()
 	crosshair:draw()
-	-- Printf to view internal values
-	--love.graphics.setColor(colors.black:getValues())
-	--love.graphics.printf(konamiState, 0, WINDOW_HEIGHT / 2, WINDOW_WIDTH, 'center')
+	
+	--hud:debugText("Foo")
 end
 
 function gameOver()
@@ -148,7 +139,7 @@ function love.keypressed(key)
 		-- Sandbox controls
 		if gamemode == 'sandbox' then
 			if key == 'f' then
-				enemiesManager:add(controls.mouse.x, controls.mouse.y, player)
+				enemiesManager:emplace(controls.mouse.x, controls.mouse.y, player)
 			elseif key == 'v' then
 				player.maxHealth = 9999
 				player.health = 9999
@@ -187,4 +178,10 @@ function love.keypressed(key)
 			end
 		end
 	end
+end
+
+function doGameCollisions()
+	Collision:iterateBulletCollision(player.bullets, enemiesManager)
+	Collision:iterateCircleCollision(player, enemiesManager)
+	Collision:selfIterateCircleCollision(enemiesManager)
 end

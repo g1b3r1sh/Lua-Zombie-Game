@@ -1,21 +1,19 @@
 Gun = Class{}
 
 -- Next time, split this into types of bullets and independant clips instead of one huge blob
--- Also, have an identifyer for each gun
+-- Also, have an identifier for each gun
 function Gun:init(name, owner, bulletsManager, interval, clipSize, reloadSpeed, bulletSpeed, spread, damage)
 	self.name = name
 	self.owner = owner
 	self.bulletsManager = bulletsManager
-	
 	self.interval = interval
 	self.clipSize = clipSize
 	self.reloadSpeed = reloadSpeed
-	
 	self.bulletSpeed = bulletSpeed
 	self.spread = spread
 	self.damage = damage
 	
-	self.body = Circle(owner.x, owner.y, 7, colors.gray)
+	self.body = Circle(self.owner.x, self.owner.y, 7, COLORS.gray)
 	self.angle = 0
 	
 	self.state = 'shoot'
@@ -52,7 +50,7 @@ end
 
 function Gun:pointAt(x, y)
 	self.angle = getAngle(self.owner.x, self.owner.y, x, y)
-	self.body:goTo(self.owner.x + self.owner.r * math.cos(self.angle), self.owner.y + self.owner.r * math.sin(self.angle))
+	self.body:setPos(self.owner.x + self.owner.r * math.cos(self.angle), self.owner.y + self.owner.r * math.sin(self.angle))
 end
 
 function Gun:shoot()
@@ -70,7 +68,7 @@ function Gun:shoot()
 end
 
 function Gun:spawnShot()
-	self.bulletsManager:add(self.body.x, self.body.y, self.angle + (math.random() - 0.5) * self.spread, self.damage, self.bulletSpeed)
+	self.bulletsManager:emplace(self.body.x, self.body.y, self.angle + (math.random() - 0.5) * self.spread, self.damage, self.bulletSpeed)
 end
 
 function Gun:reload()

@@ -59,10 +59,10 @@ function Audio:isPlaying(sound)
 end
 
 function Audio:pause()
-	self.paused = love.audio.pause()
+	self.pausedSounds = love.audio.pause()
 end
 
 function Audio:resume()
-	love.audio.play(self.paused)
-	self.paused = nil
+	love.audio.play(self.pausedSounds)
+	self.pausedSounds = nil
 end

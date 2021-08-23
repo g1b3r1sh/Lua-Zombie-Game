@@ -2,6 +2,12 @@ function getAngle(x1, y1, x2, y2)
 	return math.atan2(y2 - y1, x2 - x1)
 end
 
+function squared(x)
+	return x * x
+end
+
+--Collision Math Functions
+
 function aabb(side1Min, side1Max, vertical1Min, vertical1Max, side2Min, side2Max, vertical2Min, vertical2Max)
 	return side1Min < side2Max and side1Max > side2Min and vertical1Min < vertical2Max and vertical1Max > vertical2Min
 end

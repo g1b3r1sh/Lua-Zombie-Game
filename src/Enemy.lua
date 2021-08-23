@@ -1,22 +1,21 @@
--- Targets player
-
 Enemy = Class{}
 
 function Enemy:init(x, y, target)
-	self.body = Circle(x, y, 20, colors.green, 20)
-	self.target = target
-	
-	self.healthbar = Healthbar(self)
-	
 	self.maxHealth = 100
 	self.health = self.maxHealth
 	self.speed = 100
-	self.dead = false
-	
 	self.attackDamage = 5
 	self.attackRadius = 5
 	self.timeUntilAttack = 0.5
+	
+	self.target = target
+	
+	self.body = Circle(x, y, 20, COLORS.green, 20)
+	self.healthbar = Healthbar(self)
+	
 	self.attackTimer = self.timeUntilAttack
+	self.dead = false
+	
 end
 
 function Enemy:update(dt)
@@ -59,9 +58,5 @@ function Enemy:goTowards(x, y)
 end
 
 function Enemy:canAttackTarget()
-	if (self.body.x - self.target.body.x) * (self.body.x - self.target.body.x) + (self.body.y - self.target.body.y) * (self.body.y - self.target.body.y) <= (self.body.r + self.attackRadius + self.target.body.r) * (self.body.r + self.attackRadius + self.target.body.r) then
-		return true
-	else
-		return false
-	end
+	return circleInCircle(self.body, self.target.body)
 end

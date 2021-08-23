@@ -1,15 +1,9 @@
 Color = Class{}
 
 function Color:init(r, g, b)
-	if g == nil and b == nil then
-		self.r = r
-		self.g = r
-		self.b = r
-	else
-		self.r = r
-		self.g = g
-		self.b = b
-	end
+	self.r = r
+	self.g = g or r
+	self.b = b or r
 end
 
 function Color:getValues()

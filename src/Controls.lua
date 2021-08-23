@@ -9,6 +9,11 @@ function Controls:init(player)
 end
 
 function Controls:update(dt)
+	self:mouseControls(dt)
+	self:keyboardControls(dt)
+end
+
+function Controls:mouseControls(dt)
 	self.mouse:update(dt)
 	
 	self.player.currentGun.pointX = self.mouse.x
@@ -17,7 +22,9 @@ function Controls:update(dt)
 	if self.mouse:isDown() then
 		self.player.currentGun:shoot(self.mouse:getPos())
 	end
-	
+end
+
+function Controls:keyboardControls(dt)
 	if love.keyboard.isDown('w') then
 		self.player.body.dy = -self.player.speed
 	elseif love.keyboard.isDown('s') then
