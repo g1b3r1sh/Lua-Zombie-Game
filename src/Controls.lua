@@ -1,43 +1,56 @@
-Controls = Class{}
-
+require 'Player'
+require 'Crosshair'
 require 'Mouse'
 
-function Controls:init(player)
+Controls = Class{}
+
+function Controls:init(player, crosshair)
 	self.player = player
+	self.crosshair = crosshair
 	
 	self.mouse = Mouse()
 end
 
 function Controls:update(dt)
 	self:mouseControls(dt)
-	self:keyboardControls(dt)
+	self:movementControls(dt)
 end
 
 function Controls:mouseControls(dt)
 	self.mouse:update(dt)
-	
-	self.player.currentGun.pointX = self.mouse.x
-	self.player.currentGun.pointY = self.mouse.y
-	
+	self.crosshair:setPos(self.mouse:getPos())
 	if self.mouse:isDown() then
-		self.player.currentGun:shoot(self.mouse:getPos())
+		self.crosshair:setClicking(true)
+	else
+		self.crosshair:setClicking(false)
+	end
+	
+	if gameState == "play" then
+		self.player:pointAt(self.mouse:getPos())
+		
+		if self.mouse:isDown() then
+			self.player:shoot()
+		end
 	end
 end
 
-function Controls:keyboardControls(dt)
+-- TODO: Separate velocity functionality from controls
+function Controls:movementControls(dt)
+	local dx, dy = self.player:getVel()
 	if love.keyboard.isDown('w') then
-		self.player.body.dy = -self.player.speed
+		dy = -self.player.maxSpeed
 	elseif love.keyboard.isDown('s') then
-		self.player.body.dy = self.player.speed
+		dy = self.player.maxSpeed
 	else
-		self.player.body.dy = 0
+		dy = 0
 	end
 	
 	if love.keyboard.isDown('a') then
-		self.player.body.dx = -self.player.speed
+		dx = -self.player.maxSpeed
 	elseif love.keyboard.isDown('d') then
-		self.player.body.dx = self.player.speed
+		dx = self.player.maxSpeed
 	else
-		self.player.body.dx = 0
+		dx = 0
 	end
+	self.player:setVel(dx, dy)
 end

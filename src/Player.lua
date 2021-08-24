@@ -1,14 +1,24 @@
+require 'Circle'
+require 'Color'
+require 'EntManager'
+require 'Healthbar'
+require 'Gun'
+require 'Shotgun'
+require 'Audio'
+require 'Bullet'
+
 Player = Class{}
 
+-- TODO: Player and Enemy class should inherit from same class
 function Player:init()
-	self.speed = 150
+	self.maxSpeed = 150
 	
 	self.body = Circle(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 20, COLORS.blue)
-	
 	
 	self.bullets = EntManager(Bullet, function(bullet)
 		return bullet.remove
 	end)
+	self.healthbar = Healthbar(self.body.r * 2, self.body.r)
 	
 	-- Format of guns: name, owner, bulletsManager, interval, clipSize, reloadSpeed, bulletSpeed, spread, damage, Shotguns:[numBullets, roundSpread])
 	self.guns = {
@@ -52,6 +62,7 @@ function Player:update(dt)
 			end
 		end
 	end
+	self:updateHealthbar()
 end
 
 function Player:draw()
@@ -59,6 +70,7 @@ function Player:draw()
 	if not self.dead then
 		self.bullets:draw()
 		self.currentGun:draw()
+		self.healthbar:draw()
 	end
 end
 
@@ -77,6 +89,14 @@ function Player:switchGun(gun)
 	end
 end
 
+function Player:pointAt(x, y)
+	self.currentGun:pointAt(x, y)
+end
+
+function Player:shoot()
+	self.currentGun:shoot()
+end
+
 function Player:damage(a)
 	if gameState =='play' then
 		self.health = self.health - a
@@ -89,4 +109,21 @@ function Player:damage(a)
 			audio:play('pain' .. math.random(1, 3))
 		end
 	end
+end
+
+function Player:getPos(x, y)
+	return self.body:getPos()
+end
+
+function Player:setVel(dx, dy)
+	self.body:setVel(dx, dy)
+end
+
+function Player:getVel()
+	return self.body:getVel()
+end
+
+function Player:updateHealthbar()
+	self.healthbar:updateHealthRatio(self.health, self.maxHealth)
+	self.healthbar:updatePos(self.body:getPos())
 end

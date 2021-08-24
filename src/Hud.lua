@@ -1,6 +1,9 @@
-Hud = Class{}
+require 'Player'
+require 'Color'
+require 'Gun'
+require 'Circle'
 
-require 'Healthbar'
+Hud = Class{}
 
 function Hud:init(player)
 	self.fonts = {
@@ -11,15 +14,13 @@ function Hud:init(player)
 	}
 	
 	self.player = player
-	self.healthbar = Healthbar(self.player)
 	
-	self.currentFont = nil
+	self.currentFont = self.fonts.normal
 	self.padding = 5
 	self.playerPadding = -3
 end
 
 function Hud:update(dt)
-	self.healthbar:update(dt)
 end
 
 function Hud:draw()
@@ -28,7 +29,6 @@ function Hud:draw()
 		self:setFont(self.fonts.normal)
 		love.graphics.print("FPS: " .. tostring(love.timer.getFPS()), 5, 5)
 		
-		self.healthbar:draw()
 		self:drawStationary()
 		
 		if self.player.currentGun.state == 'reload' and self.player.currentGun.reloadTimer > 0 then

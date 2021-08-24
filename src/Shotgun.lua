@@ -1,4 +1,5 @@
 require 'Gun'
+require 'EntManager'
 
 Shotgun = Class{__includes = Gun}
 

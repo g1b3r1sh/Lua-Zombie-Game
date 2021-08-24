@@ -9,28 +9,19 @@
 
 Class = require 'class'
 
-require 'Audio'
-
-require 'util'
 require 'Color'
-require 'Circle'
-require 'EntManager'
-
-require 'Controls'
-require 'Crosshair'
-
-require 'Healthbar'
+require 'Audio'
 require 'Player'
-require 'Enemy'
-
-require 'Bullet'
-require 'Gun'
-require 'Shotgun'
-
-require 'Collision'
+require 'Crosshair'
+require 'Controls'
+require 'EntManager'
 require 'Spawning'
-
 require 'Hud'
+require 'Collision'
+
+-- TODO: Require files in own modules and try to reduce requires in main
+
+math.randomseed(os.time())
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
@@ -40,20 +31,23 @@ BOUNDARY_RIGHT = WINDOW_WIDTH + 100
 BOUNDARY_TOP = 0 - 100
 BOUNDARY_BOTTOM = WINDOW_HEIGHT + 100
 
-
-math.randomseed(os.time())
-
 COLORS = {
 	lightgray = Color(211),
 	gray = Color(128),
 	green = Color(0, 128, 0),
 	blue = Color(0, 0, 255),
-	black = Color(0, 0, 0),
+	black = Color(0),
 	lightgreen = Color(50, 200, 50),
 	red = Color(200, 50, 50)
 }
 
 function love.load()
+	-- Environment Variables
+	gameState = 'play'
+	gamemode = 'survival'
+	
+	konami = {'up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'}
+	konamiState = 1
 	
 	-- Window Setup
 	love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -63,8 +57,8 @@ function love.load()
 	-- Setup Objects
 	audio = Audio()
 	player = Player()
-	controls = Controls(player)
-	crosshair = Crosshair(controls.mouse)
+	crosshair = Crosshair()
+	controls = Controls(player, crosshair)
 	enemiesManager = EntManager(Enemy, function(enemy)
 		if enemy.dead then
 			player.kills = player.kills + 1
@@ -74,33 +68,28 @@ function love.load()
 	spawning = Spawning(enemiesManager)
 	hud = Hud(player)
 	
-	gameState = 'play'
-	gamemode = 'survival'
-	
-	konami = {'up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'}
-	konamiState = 1
 	-- Test Objects
 	--enemiesManager:emplace(100, WINDOW_HEIGHT / 2, player)
 end
 
 function love.update(dt)
-	crosshair:update(dt)
 	if gameState == 'play' then
-		controls:update(dt)
-		
 		player:update(dt)
 		enemiesManager:update(dt)
-		doGameCollisions()
-		
 		hud:update(dt)
 		
 		if gamemode == 'survival' then
 			spawning:update(dt)
 		end
+		
+		Collision:iterateCircleCollision(player, enemiesManager)
 	elseif gameState == 'gameover' then
 		enemiesManager:update(dt)
-		doGameCollisions()
 	end
+	controls:update(dt)
+	
+	Collision:iterateBulletCollision(player.bullets, enemiesManager)
+	Collision:selfIterateCircleCollision(enemiesManager)
 end
 
 function love.draw()
@@ -112,7 +101,7 @@ function love.draw()
 	hud:draw()
 	crosshair:draw()
 	
-	--hud:debugText("Foo")
+	--hud:debugText(controls.mouse:isDown() and "true" or "false")
 end
 
 function gameOver()
@@ -178,10 +167,4 @@ function love.keypressed(key)
 			end
 		end
 	end
-end
-
-function doGameCollisions()
-	Collision:iterateBulletCollision(player.bullets, enemiesManager)
-	Collision:iterateCircleCollision(player, enemiesManager)
-	Collision:selfIterateCircleCollision(enemiesManager)
 end

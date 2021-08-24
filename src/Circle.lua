@@ -1,5 +1,7 @@
 -- Responsible for storing position and displaying entity
 
+require 'Color'
+
 Circle = Class{}
 
 function Circle:init(x, y, r, color, windowLimit)
@@ -34,4 +36,13 @@ end
 function Circle:setPos(x, y)
 	self.x = x
 	self.y = y
+end
+
+function Circle:getVel()
+	return self.dx, self.dy
+end
+
+function Circle:setVel(dx, dy)
+	self.dx = dx
+	self.dy = dy
 end

@@ -1,6 +1,9 @@
-Collision = {}
-
+require 'Enemy'
+require 'Player'
+require 'Circle'
 require 'util'
+
+Collision = {}
 
 -- TODO: Seperate bullet interaction behavior with collision behavior
 
@@ -49,9 +52,7 @@ end
 function Collision:correctCircleCollision(c1, c2)
 	local midX = (c1.x + c2.x) / 2
 	local midY = (c1.y + c2.y) / 2
-	local dist = math.sqrt((c1.x - c2.x) * (c1.x - c2.x) + (c1.y - c2.y) * (c1.y - c2.y)) or 1
-	c1.x = midX + c1.r * (c1.x - c2.x) / dist
-	c1.y = midY + c1.r * (c1.y - c2.y) / dist
-	c2.x = midX + c2.r * (c2.x - c1.x) / dist
-	c2.y = midY + c2.r * (c2.y - c1.y) / dist
+	local dist = math.sqrt(squared(c1.x - c2.x) + squared(c1.y - c2.y)) or 1
+	c1:setPos(midX + c1.r * (c1.x - c2.x) / dist, midY + c1.r * (c1.y - c2.y) / dist)
+	c2:setPos(midX + c2.r * (c2.x - c1.x) / dist, midY + c2.r * (c2.y - c1.y) / dist)
 end

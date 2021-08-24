@@ -1,23 +1,20 @@
+require 'Color'
+
 Healthbar = Class{}
 
-function Healthbar:init(parent)
-	self.parent = parent
-	
+function Healthbar:init(width, offsetY)
 	self.padding = 5
-	self.width = self.parent.body.r * 2
+	
+	self.width = width
+	-- For a circle, it would be the radius
+	self.offsetY = offsetY
 	
 	self.healthRatio = 1.0
-	self.startX = 0
-	self.endX = 0
+	self.x = 0
 	self.y = 0
 end
 
 function Healthbar:update(dt)
-	self.healthRatio = math.max(0, math.min(1, self.parent.health / self.parent.maxHealth))
-	
-	self.startX = self.parent.body.x + self.width / 2
-	self.endX = self.parent.body.x + self.width / 2
-	self.y = self.parent.body.y - self.parent.body.r - self.padding
 end
 
 function Healthbar:draw()
@@ -25,10 +22,19 @@ function Healthbar:draw()
 		love.graphics.setLineWidth(3)
 		
 		love.graphics.setColor(COLORS.red:getValues())
-		love.graphics.line(self.parent.body.x - self.width / 2 + self.width * self.healthRatio, self.y, self.endX, self.y)
+		love.graphics.line(self.x - self.width / 2 + self.width * self.healthRatio, self.y, self.x + self.width / 2, self.y)
 		love.graphics.setColor(COLORS.green:getValues())
-		love.graphics.line(self.parent.body.x - self.width / 2, self.y, self.parent.body.x - self.width / 2 + self.width * self.healthRatio, self.y)
+		love.graphics.line(self.x - self.width / 2, self.y, self.x - self.width / 2 + self.width * self.healthRatio, self.y)
 		
 		love.graphics.setLineWidth(1)
 	end
+end
+
+function Healthbar:updateHealthRatio(health, maxHealth)
+	self.healthRatio = math.max(0, math.min(1, health / maxHealth))
+end
+
+function Healthbar:updatePos(x, y)
+	self.x = x
+	self.y = y - self.offsetY - self.padding
 end

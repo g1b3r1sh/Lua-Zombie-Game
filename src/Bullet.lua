@@ -1,7 +1,12 @@
+require 'Color'
+require 'Circle'
+
 Bullet = Class{}
+
 -- If damage decreases over time, change in update loop
 	-- Alternative is to save origin and calculate real damage at point of impact
 -- Additionally, damage should be calculated in Bullet class
+-- TODO: Use Circle class as body
 function Bullet:init(x, y, a, damage, speed)
 	self.r = 3
 	self.color = COLORS.black

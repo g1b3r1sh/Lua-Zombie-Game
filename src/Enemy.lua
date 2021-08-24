@@ -1,3 +1,9 @@
+require 'Player'
+require 'Circle'
+require 'Color'
+require 'Healthbar'
+require 'util'
+
 Enemy = Class{}
 
 function Enemy:init(x, y, target)
@@ -11,7 +17,7 @@ function Enemy:init(x, y, target)
 	self.target = target
 	
 	self.body = Circle(x, y, 20, COLORS.green, 20)
-	self.healthbar = Healthbar(self)
+	self.healthbar = Healthbar(self.body.r * 2, self.body.r)
 	
 	self.attackTimer = self.timeUntilAttack
 	self.dead = false
@@ -19,10 +25,11 @@ function Enemy:init(x, y, target)
 end
 
 function Enemy:update(dt)
-	self:goTowards(self.target.body:getPos())
+	self:goTowards(self.target:getPos())
 	self.body:update(dt)
 	
-	self.healthbar:update(dt)
+	self:updateHealthbar()
+	
 	if self:canAttackTarget() then
 		if self.attackTimer > 0 then
 			self.attackTimer = self.attackTimer - dt
@@ -53,10 +60,14 @@ end
 
 function Enemy:goTowards(x, y)
 	local a = getAngle(self.body.x, self.body.y, x, y)
-	self.body.dx = self.speed * math.cos(a)
-	self.body.dy = self.speed * math.sin(a)
+	self.body:setVel(self.speed * math.cos(a), self.speed * math.sin(a))
 end
 
 function Enemy:canAttackTarget()
 	return circleInCircle(self.body, self.target.body)
+end
+
+function Enemy:updateHealthbar()
+	self.healthbar:updateHealthRatio(self.health, self.maxHealth)
+	self.healthbar:updatePos(self.body:getPos())
 end

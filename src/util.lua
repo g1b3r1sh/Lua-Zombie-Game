@@ -2,8 +2,8 @@ function getAngle(x1, y1, x2, y2)
 	return math.atan2(y2 - y1, x2 - x1)
 end
 
-function squared(x)
-	return x * x
+function squared(n)
+	return n * n
 end
 
 --Collision Math Functions

@@ -1,3 +1,8 @@
+require 'EntManager'
+require 'Circle'
+require 'Audio'
+require 'util'
+
 Gun = Class{}
 
 -- Next time, split this into types of bullets and independant clips instead of one huge blob
@@ -20,14 +25,9 @@ function Gun:init(name, owner, bulletsManager, interval, clipSize, reloadSpeed, 
 	self.reloadTimer = reloadSpeed
 	self.cooldown = 0
 	self.clip = self.clipSize
-	
-	self.pointX = 0
-	self.pointY = 0
 end
 
 function Gun:update(dt)
-	self:pointAt(self.pointX, self.pointY)
-	
 	if self.cooldown > 0 then
 		self.cooldown = self.cooldown - dt
 	end

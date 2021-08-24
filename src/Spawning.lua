@@ -1,3 +1,5 @@
+require 'EntManager'
+
 Spawning = Class{}
 
 function Spawning:init(enemiesManager)
