@@ -19,8 +19,6 @@ require 'Spawning'
 require 'Hud'
 require 'Collision'
 
--- TODO: Require files in own modules and try to reduce requires in main
-
 math.randomseed(os.time())
 
 WINDOW_WIDTH = 1280

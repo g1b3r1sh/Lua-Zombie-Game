@@ -34,7 +34,6 @@ function Controls:mouseControls(dt)
 	end
 end
 
--- TODO: Separate velocity functionality from controls
 function Controls:movementControls(dt)
 	local dx, dy = self.player:getVel()
 	if love.keyboard.isDown('w') then
