@@ -20,9 +20,6 @@ function Hud:init(player)
 	self.playerPadding = -3
 end
 
-function Hud:update(dt)
-end
-
 function Hud:draw()
 	if gameState == 'play' or gameState == 'pause' then
 		love.graphics.setColor(COLORS.black:getValues())

@@ -22,9 +22,6 @@ function Spawning:update(dt)
 	end
 end
 
-function Spawning:draw()
-end
-
 function Spawning:spawnEdge()
 	local side = math.random(4)
 	if side == 0 then

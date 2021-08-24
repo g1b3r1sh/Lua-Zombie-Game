@@ -10,9 +10,6 @@ function Audio:init()
 	self:play('ambient')
 end
 
-function Audio:draw()
-end
-
 function Audio:loadSounds()
 	-- Gun Sounds and Zombie Crowd Sound Credits: https://www.fesliyanstudios.com
 	-- Player Sound Credits: Half Life 2

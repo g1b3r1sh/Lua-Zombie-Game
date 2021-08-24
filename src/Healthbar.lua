@@ -14,9 +14,6 @@ function Healthbar:init(width, offsetY)
 	self.y = 0
 end
 
-function Healthbar:update(dt)
-end
-
 function Healthbar:draw()
 	if self.healthRatio ~= 1 then
 		love.graphics.setLineWidth(3)

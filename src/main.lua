@@ -74,7 +74,6 @@ function love.update(dt)
 	if gameState == 'play' then
 		player:update(dt)
 		enemiesManager:update(dt)
-		hud:update(dt)
 		
 		if gamemode == 'survival' then
 			spawning:update(dt)

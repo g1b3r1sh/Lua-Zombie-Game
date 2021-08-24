@@ -13,9 +13,6 @@ function Crosshair:init(x, y)
 	self.isClicking = false
 end
 
-function Crosshair:update(dt)
-end
-
 function Crosshair:draw()
 	love.graphics.setLineWidth(self.lineWidth)
 	if self.isClicking then
