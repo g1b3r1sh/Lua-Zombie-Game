@@ -9,31 +9,25 @@ Bullet = Class{}
 -- TODO: Use Circle class as body
 function Bullet:init(x, y, a, damage, speed)
 	self.r = 3
-	self.color = COLORS.black
+	self.body = Circle(x, y, self.r, COLORS.black, self.r)
 	
-	self.x = x
-	self.y = y
 	self.a = a
 	self.damage = damage
 	self.speed = speed
 	
-	
-	self.dx = self.speed * math.cos(a)
-	self.dy = self.speed * math.sin(a)
+	self.body:setVel(self.speed * math.cos(a), self.speed * math.sin(a))
 	
 	self.remove = false
 end
 
 function Bullet:update(dt)
-	self.x = self.x + self.dx * dt
-	self.y = self.y + self.dy * dt
+	self.body:update(dt)
 	
-	if self.x < BOUNDARY_LEFT or self.x > BOUNDARY_RIGHT or self.y < BOUNDARY_TOP or self.y > BOUNDARY_BOTTOM then
+	if self.body.x < BOUNDARY_LEFT or self.body.x > BOUNDARY_RIGHT or self.body.y < BOUNDARY_TOP or self.body.y > BOUNDARY_BOTTOM then
 		self.remove = true
 	end
 end
 
 function Bullet:draw()
-	love.graphics.setColor(self.color:getValues())
-	love.graphics.circle('fill', self.x, self.y, self.r)
+	self.body:draw()
 end
