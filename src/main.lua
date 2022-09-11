@@ -29,16 +29,6 @@ BOUNDARY_RIGHT = WINDOW_WIDTH + 100
 BOUNDARY_TOP = 0 - 100
 BOUNDARY_BOTTOM = WINDOW_HEIGHT + 100
 
-COLORS = {
-	lightgray = Color(211),
-	gray = Color(128),
-	green = Color(0, 128, 0),
-	blue = Color(0, 0, 255),
-	black = Color(0),
-	lightgreen = Color(50, 200, 50),
-	red = Color(200, 50, 50)
-}
-
 function love.load()
 	-- Environment Variables
 	gameState = 'play'
@@ -90,7 +80,7 @@ function love.update(dt)
 end
 
 function love.draw()
-	love.graphics.clear(COLORS.lightgray:getValues())
+	love.graphics.clear(Color.terms.lightgray:getValues())
 	
 	player:draw()
 	enemiesManager:draw()
@@ -98,7 +88,7 @@ function love.draw()
 	hud:draw()
 	crosshair:draw()
 	
-	--hud:debugText(controls.mouse:isDown() and "true" or "false")
+	--hud:debugText(love.window.getDesktopDimensions())
 end
 
 function gameOver()

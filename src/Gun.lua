@@ -18,7 +18,7 @@ function Gun:init(name, owner, bulletsManager, interval, clipSize, reloadSpeed, 
 	self.spread = spread
 	self.damage = damage
 	
-	self.body = Circle(self.owner.x, self.owner.y, 7, COLORS.gray)
+	self.body = Circle(self.owner.x, self.owner.y, 7, Color.terms.gray)
 	self.angle = 0
 	
 	self.state = 'shoot'

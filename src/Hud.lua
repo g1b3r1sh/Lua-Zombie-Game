@@ -22,7 +22,7 @@ end
 
 function Hud:draw()
 	if gameState == 'play' or gameState == 'pause' then
-		love.graphics.setColor(COLORS.black:getValues())
+		love.graphics.setColor(Color.terms.black:getValues())
 		self:setFont(self.fonts.normal)
 		love.graphics.print("FPS: " .. tostring(love.timer.getFPS()), 5, 5)
 		
@@ -33,7 +33,7 @@ function Hud:draw()
 			love.graphics.printf(string.format('%.1f', self.player.currentGun.reloadTimer), self.player.body.x - self.player.body.r + self.playerPadding, self.player.body.y + self.player.body.r + 3, self.player.body.r * 2 - self.playerPadding * 2, 'center')
 		end
 	elseif gameState == 'gameover' then
-		love.graphics.setColor(COLORS.black:getValues())
+		love.graphics.setColor(Color.terms.black:getValues())
 		self:setFont(self.fonts.big)
 		
 		love.graphics.printf("Game Over", 0, WINDOW_HEIGHT / 2, WINDOW_WIDTH, 'center')
@@ -47,7 +47,7 @@ function Hud:setFont(font)
 end
 
 function Hud:drawStationary()
-	love.graphics.setColor(COLORS.black:getValues())
+	love.graphics.setColor(Color.terms.black:getValues())
 	self:setFont(self.fonts.big)
 	
 	love.graphics.printf(self.player.currentGun.name, self.padding, WINDOW_HEIGHT - self.currentFont:getHeight() - self.padding, WINDOW_WIDTH - self.padding * 2, 'right')
@@ -63,8 +63,12 @@ function Hud:drawStationary()
 	end
 end
 
-function Hud:debugText(text)
+function Hud:debugText(...)
+	local arg = {...}
 	-- Printf to view internal values
-	love.graphics.setColor(COLORS.black:getValues())
-	love.graphics.printf(text, 0, WINDOW_HEIGHT / 2, WINDOW_WIDTH, 'center')
+	love.graphics.setColor(Color.terms.black:getValues())
+	self:setFont(self.fonts.big)
+	for i,text in ipairs(arg) do
+		love.graphics.printf(tostring(text), 0, WINDOW_HEIGHT / 2 + self.currentFont:getHeight() * (i - 1), WINDOW_WIDTH, 'center')
+	end
 end

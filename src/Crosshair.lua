@@ -5,8 +5,8 @@ Crosshair = Class{}
 function Crosshair:init(x, y)
 	self.r = 5
 	self.lineWidth = 1
-	self.color = COLORS.black
-	self.colorClick = COLORS.lightgreen
+	self.color = Color.terms.black
+	self.colorClick = Color.terms.lightgreen
 	
 	self.x = x
 	self.y = y

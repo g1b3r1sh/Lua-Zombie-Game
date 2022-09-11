@@ -16,7 +16,7 @@ function Enemy:init(x, y, target)
 	
 	self.target = target
 	
-	self.body = Circle(x, y, 20, COLORS.green, 20)
+	self.body = Circle(x, y, 20, Color.terms.green, 20)
 	self.healthbar = Healthbar(self.body.r * 2, self.body.r)
 	
 	self.attackTimer = self.timeUntilAttack

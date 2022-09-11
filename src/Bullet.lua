@@ -9,7 +9,7 @@ Bullet = Class{}
 -- TODO: Use Circle class as body
 function Bullet:init(x, y, a, damage, speed)
 	self.r = 3
-	self.body = Circle(x, y, self.r, COLORS.black, self.r)
+	self.body = Circle(x, y, self.r, Color.terms.black, self.r)
 	
 	self.a = a
 	self.damage = damage
