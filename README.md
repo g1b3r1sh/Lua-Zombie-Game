@@ -34,6 +34,7 @@ Notable Accomplishments (for me):
 This project was developed over a duration of one week from 8/8/2020 - 8/14/2020
 
 Credits:
+* Class Implementation: Matthias Richter
 * List manager: Mitch McMabers from https://stackoverflow.com/questions/12394841/safely-remove-items-from-an-array-table-while-iterating
 * Gun Sounds and Zombie Crowd Sound Credits: https://www.fesliyanstudios.com
 * Player Sound Credits: Half Life 2
